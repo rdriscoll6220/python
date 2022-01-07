@@ -2,6 +2,9 @@ from time import sleep
 
 print("This is my file to demonstrate best practices.")
 
+def wake():
+    
+
 def centralNervousSystem():
     print("Setting up Central Nervous System...")
     print("\tConfirming connectivity to all graphs...")

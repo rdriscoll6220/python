@@ -1,44 +1,33 @@
 from py2neo import Node, Graph, Relationship
-import array, time
+from py2neo.bulk import create_nodes
+from textblob import TextBlob
+import array
 
-def wake():
+# Read in article to TextBlob
+
+def readInArticle():
+    with open('/home/ron/repos/python/textBlob/roberts.txt', 'r') as text1:
+        content = text1.read()
+        text1.close
+        blob = TextBlob(content)
+        bt = blob.tags
+    
+def writeNewData():
     lobe1 = Graph("bolt://192.168.1.17:7687", auth=("neo4j", "Wh@dunn1t"))
-    print(lobe1)
-    lobe2 = Graph("bolt://192.168.1.18:7687", auth=("neo4j", "Wh@dunn1t"))
-    print(lobe2)
-    lobe3 = Graph("bolt://192.168.1.19:7687", auth=("neo4j", "Wh@dunn1t"))
-    print(lobe3)
-    lobe4 = Graph("bolt://192.168.1.20:7687", auth=("neo4j", "Wh@dunn1t"))
-    print(lobe4)
-    array=[lobe1, lobe2, lobe3, lobe4]
-    print(array)
-
-    wakeEvent = Node("wakeEvent", mark=time.asctime(), Conf=50)
-
-    lobe1.delete_all()
-    #ox = lobe1.begin()
-    #ox.delete_all()
-    #ox.commit()
-
-    #rx = lobe1.begin()
-    #rx.create(wakeEvent)
-    #rx.commit()
-
-    #sx = lobe2.begin()
-    #sx.create(wakeEvent)
-    #sx.commit()
-
-    #tx = lobe3.begin()
-    #tx.create(wakeEvent)
-    #tx.commit()
-
-    #ux = lobe4.begin()
-    #ux.create(wakeEvent)
-    #ux.commit()
+    keys = ["word", "pos"]
+    create_nodes(lobe1.auto(), bt, labels={'vword'} = blob.tags, labels={"vword"}, keys=keys)
+    lobe1.nodes.match("vword").count()
+        
     
 
+def learnReadArticles():
+    readInArticle()
+    writeNewData()
+
+   
+
 def main():
-    wake()
+    learnReadArticles()
     
 if __name__ == "__main__":
     main()
