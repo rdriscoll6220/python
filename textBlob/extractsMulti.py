@@ -1,30 +1,35 @@
 from py2neo import Node, Graph, Relationship, NodeMatcher
 from textblob import TextBlob
 import array
+import newspaper
+from newspaper import Article
 
 # Read in article to TextBlob
 
 def readInArticle():
     print("Reading article...")
-    with open('/home/ron/repos/python/textBlob/345-0.txt', 'r') as text1:
-        content = text1.read()
-        text1.close()
-        print("Instanstiating TextBlob...")
-        blob = TextBlob(content)
-        print(blob)
-        print("Extracting tags...")
-        bt = blob.tags
-        print(bt)
-        print("Extracting noun_phrases...")
-        bn = blob.noun_phrases
-        print(bn)
-        print("Extracting words...")
-        bw = blob.words
-        print(bw)
-        print("Analysing sentiment...")
-        bs = blob.sentiment
-        print(bs)
-        print("Exracting synsets...")
+    print("Creating newpaper3k Article") 
+    article = Article('https://lite.cnn.com/en/article/h_4ea51f73190023916dde1c4fbae0adf1')
+    print("Parsing article")
+    article.download()
+    article.parse()
+    article.nlp()
+    print(article.title)
+    print(article.publish_date)
+    print(article.authors)
+    print(article.summary)
+    print(article.text)
+    print("Instanstiating TextBlob...")
+    blob = TextBlob(article.text)
+    print(blob)
+    print("Extracting tags...")
+    bt = blob.tags
+    print("Extracting noun_phrases...")
+    bn = blob.noun_phrases
+    print(bn)
+    print("Analysing sentiment...")
+    bs = blob.sentiment
+    print(bs)    
         
     g = Graph("bolt://192.168.1.17:7687", auth=("neo4j", "Wh@dunn1t"))
     #g.delete_all()

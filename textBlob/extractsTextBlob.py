@@ -6,7 +6,7 @@ import array
 
 def readInArticle():
     print("Reading article...")
-    with open('/home/ron/repos/python/textBlob/345-0.txt', 'r') as text1:
+    with open('/home/ron/repos/python/textBlob/roberts.txt', 'r') as text1:
         content = text1.read()
         text1.close()
         print("Instanstiating TextBlob...")
@@ -18,16 +18,15 @@ def readInArticle():
         print("Extracting noun_phrases...")
         bn = blob.noun_phrases
         print(bn)
-        print("Extracting words...")
-        bw = blob.words
-        print(bw)
+        print("Extracting sentenced...")
+        bst = blob.sentences
+        print(bst)
         print("Analysing sentiment...")
         bs = blob.sentiment
         print(bs)
-        print("Exracting synsets...")
         
     g = Graph("bolt://192.168.1.17:7687", auth=("neo4j", "Wh@dunn1t"))
-    #g.delete_all()
+    g.delete_all()
     # for loop
     for i in bt:
         j = i[0]
