@@ -18,8 +18,6 @@ def writeNewData():
     create_nodes(lobe1.auto(), bt, labels={'vword'} = blob.tags, labels={"vword"}, keys=keys)
     lobe1.nodes.match("vword").count()
         
-    
-
 def learnReadArticles():
     readInArticle()
     writeNewData()
