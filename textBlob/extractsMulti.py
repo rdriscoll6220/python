@@ -1,3 +1,4 @@
+import py2neo
 from py2neo import Node, Graph, Relationship, NodeMatcher
 from textblob import TextBlob
 import array
@@ -21,9 +22,9 @@ def readInArticle():
     print(article.text)
     print("Instanstiating TextBlob...")
     blob = TextBlob(article.text)
-    print(blob)
     print("Extracting tags...")
     bt = blob.tags
+    print(bt)
     print("Extracting noun_phrases...")
     bn = blob.noun_phrases
     print(bn)
